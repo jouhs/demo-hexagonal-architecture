@@ -45,4 +45,13 @@ public class MovieUseCases {
                 ()-> new MovieNotFoundException("This movie does not exist")
         );
     }
+
+    public String deleteMovie(Movie movie) {
+        var isPresent = movieDAO.findMovieByTitle(movie.title()).isPresent();
+        if(!isPresent)
+            throw new MovieNotFoundException("This movie does not exist");
+
+        movieDAO.deleteMovie(movie);
+        return "Movie Successfully deleted";
+    }
 }
